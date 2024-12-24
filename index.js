@@ -100,11 +100,10 @@ const convertBase64Image = (filePath, base64Image) => {
 });
 }
 
-app.post('/api/file-upload', upload.single('image'), (req, res) => {
-  //const _filePath = '../files/' + Date.now() + '.png';
+app.post('/api/file-upload', upload.single('image'), (req, res) => { 
   const tempPath = req.file.path;
   const targetPath = path.join('/tmp', req.file.originalname);
-   const fileUrl = `https://sample-api-psi.vercel.app/tmp/${req.file.filename}`;
+   const fileUrl = `https://sample-api-psi.vercel.app/tmp/${req.file.originalname}`;
     // Move the file to its final destination
     fs.rename(tempPath, targetPath, (err) => {
         if (err) {
@@ -114,8 +113,7 @@ app.post('/api/file-upload', upload.single('image'), (req, res) => {
         console.log('File uploaded to:', targetPath);
         // res.send('File uploaded successfully');
         res.json({ filePath: fileUrl });
-    });
- 
+    }); 
 });
 
 app.get('/tmp/:filename', (req, res) => {
