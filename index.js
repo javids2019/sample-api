@@ -92,7 +92,7 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ dest: '/tmp/' });
+const upload = multer({ dest: '/public/' });
 
 const convertBase64Image = (filePath, base64Image) => {
   fs.writeFile(filePath, base64Image, function(err) {
@@ -102,8 +102,8 @@ const convertBase64Image = (filePath, base64Image) => {
 
 app.post('/api/file-upload', upload.single('image'), (req, res) => { 
   const tempPath = req.file.path;
-  const targetPath = path.join('/tmp', req.file.filename);
-   const fileUrl = `https://sample-api-psi.vercel.app/tmp/${req.file.filename}`;
+  const targetPath = path.join('/public', req.file.filename);
+   const fileUrl = `https://sample-api-psi.vercel.app/public/${req.file.filename}`;
     // Move the file to its final destination
     fs.rename(tempPath, targetPath, (err) => {
         if (err) {
@@ -116,8 +116,8 @@ app.post('/api/file-upload', upload.single('image'), (req, res) => {
     }); 
 });
 
-app.get('/tmp/:filename', (req, res) => {
-    const filePath = path.join('/tmp', req.params.filename);
+app.get('/public/:filename', (req, res) => {
+    const filePath = path.join('/public', req.params.filename);
     if (fs.existsSync(filePath)) {
         res.sendFile(filePath);
     } else {
