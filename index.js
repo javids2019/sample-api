@@ -71,10 +71,9 @@ app.get('/api', (req, res) => {
 
 // Ensure the images folder exists
 
-// if (!fs.existsSync(imagesFolder)) {
-//   fs.mkdirSync(imagesFolder);
-// }
-
+ if (!fs.existsSync(imagesFolder)) {
+   fs.mkdirSync(imagesFolder);
+ }
 
 
 // Set up multer for file storage
