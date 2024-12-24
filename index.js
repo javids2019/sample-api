@@ -92,7 +92,7 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage });
+const upload = multer({ dest: '/tmp/' });
 
 const convertBase64Image = (filePath, base64Image) => {
   fs.writeFile(filePath, base64Image, function(err) {
@@ -101,8 +101,21 @@ const convertBase64Image = (filePath, base64Image) => {
 }
 
 app.post('/api/file-upload', upload.single('image'), (req, res) => {
-  const _filePath = '../files/' + Date.now() + '.png';
-  res.json({ filePath: _filePath });
+  //const _filePath = '../files/' + Date.now() + '.png';
+  const tempPath = req.file.path;
+  const targetPath = path.join('/tmp', req.file.originalname);
+
+    // Move the file to its final destination
+    fs.rename(tempPath, targetPath, (err) => {
+        if (err) {
+            console.error('Error moving file:', err);
+            return res.status(500).send('File upload failed');
+        }
+        console.log('File uploaded to:', targetPath);
+        // res.send('File uploaded successfully');
+        res.json({ filePath: targetPath });
+    });
+ 
 });
 
 app.post("/api/upload", (req, res) => {
