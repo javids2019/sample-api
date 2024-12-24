@@ -25,7 +25,8 @@ const key_secret = process.env.AJ_RAZORPAY_SECRET || 'ZeJJLLvDTN93mPrRyBu7dd7z';
 // List of allowed origins
 const allowedOrigins = [
   "http://localhost:3000", // React app running locally
-  "https://aj-smile-foundation.com",    // Production domain
+  "https://aj-smile-foundation.com", 
+  "https://sample-api-psi.vercel.app"
 ];
 
 
