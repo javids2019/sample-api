@@ -1,0 +1,10 @@
+{
+  "name": "vercel-node-app",
+  "version": "1.0.0",
+  "description": "A simple Node.js app on Vercel",
+  "main": "index.js",
+  "scripts": {
+    "start": "vercel dev"
+  },
+  "dependencies": {}
+}
