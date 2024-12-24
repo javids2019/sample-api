@@ -78,7 +78,7 @@ const convertBase64Image = (filePath, base64Image) => {
 
 app.post('/api/file-upload', upload.single('image'), (req, res) => { 
   const tempPath = req.file.path;
-  const targetPath = path.join('/public', req.file.filename);
+  const targetPath = path.join('/images', req.file.filename);
    const fileUrl = `https://sample-api-psi.vercel.app/${req.file.filename}`;
     // Move the file to its final destination
     fs.rename(tempPath, targetPath, (err) => {
@@ -92,8 +92,8 @@ app.post('/api/file-upload', upload.single('image'), (req, res) => {
     }); 
 });
 
-app.get('/public/:filename', (req, res) => {
-    const filePath = path.join('/public', req.params.filename);
+app.get('/images/:filename', (req, res) => {
+    const filePath = path.join('/images', req.params.filename);
     if (fs.existsSync(filePath)) {
         res.sendFile(filePath);
     } else {
