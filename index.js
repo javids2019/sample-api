@@ -29,6 +29,16 @@ const allowedOrigins = [
   "https://sample-api-psi.vercel.app"
 ];
 
+try
+{
+ const destinationDir = path.join('/tmp', 'images');
+if (!fs.existsSync(destinationDir)) {
+    fs.mkdirSync(destinationDir, { recursive: true }); // Create the directory if it doesn't exist
+   }
+}
+catch (err) {
+    console.error('Error creating directory:', err);
+}
 
 // CORS configuration
 const corsOptions = {
