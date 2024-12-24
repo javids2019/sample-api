@@ -79,20 +79,7 @@ try {
   console.error('Error creating directory:', err);
 }
 
-
-
-// Set up multer for file storage
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    //cb(null, process.env.REACT_IMAGE_STORE_LOCATION_URL); // Specify upload directory
-    cb(null, imagesFolder); // Specify upload directory
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname)) // Customize file name
-  },
-});
-
-const upload = multer({ dest: '/public/' });
+const upload = multer({ dest: '/tmp/' });
 
 const convertBase64Image = (filePath, base64Image) => {
   fs.writeFile(filePath, base64Image, function(err) {
@@ -103,7 +90,7 @@ const convertBase64Image = (filePath, base64Image) => {
 app.post('/api/file-upload', upload.single('image'), (req, res) => { 
   const tempPath = req.file.path;
   const targetPath = path.join('/public', req.file.filename);
-   const fileUrl = `https://sample-api-psi.vercel.app/public/${req.file.filename}`;
+   const fileUrl = `https://sample-api-psi.vercel.app/${req.file.filename}`;
     // Move the file to its final destination
     fs.rename(tempPath, targetPath, (err) => {
         if (err) {
