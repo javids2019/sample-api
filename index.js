@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 // Load environment variables from .env file
 dotenv.config();
 
-const imagesFolder = process.env.REACT_IMAGE_STORE_LOCATION_URL || './public/files/'; // "./public/files/";
+
 const key_id = process.env.AJ_RAZORPAY_KEY_ID || 'rzp_live_ZDmFUssbqr7kRa';
 const key_secret = process.env.AJ_RAZORPAY_SECRET || 'ZeJJLLvDTN93mPrRyBu7dd7z';
  
@@ -100,54 +100,7 @@ app.get('/public/:filename', (req, res) => {
         res.status(404).send('File not found');
     }
 });
-
-app.post("/api/upload", (req, res) => {
-  try {
-    const _filePath = imagesFolder + Date.now() + '.png';
-    convertBase64Image(_filePath, req?.body?.image);
- 
-
-    if (!req.body.image) {
-      return res.status(400).send({ message: "Please upload an image!" });
-    }
-    res.status(200).send({
-      message: "Image uploaded successfully!",
-      filePath: _filePath,
-    });
-    
-  } 
-  catch (error) {
-    console.log('Error', error);
-  }
-
-
-  // res.send({ message: "File uploaded successfully!" , filePath: `/files/${req.file.filename}` });
-});
-
-
-app.post("/api/uploadBase64", (req, res) => {
-  const { base64 , filename } = req.body;
- 
-  if (!base64 || !filename) {
-    return res.status(400).send({ message: "Invalid request. Base64 or filename missing!" });
-  }
-
-  // Extract the Base64 part (remove `data:image/png;base64,` prefix)
-  const base64Data = base64.split(";base64,").pop();
- 
-  // Save file to the `uploads` directory
-  const filePath = imagesFolder + filename;
-  console.log(filePath);
-  fs.writeFile(filePath, base64Data, { encoding: "base64" }, (err) => {
-    if (err) {
-      console.error("Error saving file:", err);
-      return res.status(500).send({ message: "Failed to save file!" });
-    }
-
-    res.send({ message: "File uploaded successfully!", filePath: filePath });
-  });
-});
-
+  
 app.post('/api/send-mail', async (req, res) => {
   try {
 
