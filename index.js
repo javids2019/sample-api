@@ -66,18 +66,7 @@ const transporter = nodemailer.createTransport({
 
 app.get('/api', (req, res) => {
   res.json({ message: 'Hello from the Node.js server!' });
-});
-
-
-// Ensure the images folder exists
-try {
-  if (!fs.existsSync(imagesFolder)) {
-    fs.mkdirSync(imagesFolder, { recursive: true });
-  }
-  console.log('Directory created successfully!');
-} catch (err) {
-  console.error('Error creating directory:', err);
-}
+}); 
 
 const upload = multer({ dest: '/tmp/' });
 
