@@ -70,10 +70,15 @@ app.get('/api', (req, res) => {
 
 
 // Ensure the images folder exists
+try {
+  if (!fs.existsSync(imagesFolder)) {
+    fs.mkdirSync(imagesFolder, { recursive: true });
+  }
+  console.log('Directory created successfully!');
+} catch (err) {
+  console.error('Error creating directory:', err);
+}
 
- if (!fs.existsSync(imagesFolder)) {
-   fs.mkdirSync(imagesFolder);
- }
 
 
 // Set up multer for file storage
