@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const Razorpay = require('razorpay');
 const multer = require('multer');
+const { createBlob } = require('@vercel/blob');
 const cors = require('cors');
 const fs = require('fs');
 const app = express();
@@ -77,16 +78,34 @@ const transporter = nodemailer.createTransport({
 app.get('/api', (req, res) => {
   res.json({ message: 'Hello from the Node.js server!' });
 }); 
+const upload = multer();
+const upload1 = multer({ dest: '/tmp/' });
 
-const upload = multer({ dest: '/tmp/' });
+ 
 
-const convertBase64Image = (filePath, base64Image) => {
-  fs.writeFile(filePath, base64Image, function(err) {
-    console.log('File created');
+app.post('/api/file-upload', upload.single('image'), async (req, res) => {
+    try {
+        // Get the file from the request
+        const file = req.file;
+
+        // Upload the file to Vercel Blob
+        const blob = await createBlob({
+            data: file.buffer, // File data (binary)
+            contentType: file.mimetype, // MIME type (e.g., image/png)
+            access: 'public', // Set access level (e.g., public or private)
+        });
+
+        console.log('Blob uploaded successfully:', blob);
+
+        // Send the blob URL as a response
+        res.status(200).json({ filePath: blob.url });
+    } catch (error) {
+        console.error('Error uploading blob:', error);
+        res.status(500).json({ error: 'Failed to upload file' });
+    }
 });
-}
 
-app.post('/api/file-upload', upload.single('image'), (req, res) => { 
+app.post('/api/file-upload1', upload1.single('image'), (req, res) => { 
   const tempPath = req.file.path;
   const targetPath = path.join('/images', req.file.filename);
    const fileUrl = `https://sample-api-psi.vercel.app/images/${req.file.filename}`;
