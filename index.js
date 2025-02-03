@@ -136,8 +136,7 @@ app.post('/api/send-mail', async (req, res) => {
 
     const mailOptions = {
       from: `"${req.body.from.name}" <${req.body.from.email}>`,
-      to: `"${req.body.to[0].name}" <${req.body.to[0].email}>`,
-      bcc: `"${req.body.bcc[0].name}" <${req.body.bcc[0].email}>`,
+      to: `"${req.body.to[0].name}" <${req.body.to[0].email}>`,    
       subject: req.body.subject,
       html: req.body.html
     };
