@@ -67,7 +67,6 @@ app.use(cors(corsOptions));
 const transporter = nodemailer.createTransport({
   host: 'live.smtp.mailtrap.io',
   port: 2525,
-  secure: false, // use SSL
   auth: {
     user: '63e74353647615',
     pass: '831e77187d4a08',
