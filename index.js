@@ -65,7 +65,7 @@ app.use(cors(corsOptions));
 
 // Create a transporter object
 const transporter = nodemailer.createTransport({
-  host: 'live.smtp.mailtrap.io',
+  host: 'sandbox.smtp.mailtrap.io',
   port: 2525,
   auth: {
     user: '63e74353647615',
