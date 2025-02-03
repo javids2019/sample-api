@@ -66,11 +66,11 @@ app.use(cors(corsOptions));
 // Create a transporter object
 const transporter = nodemailer.createTransport({
   host: 'live.smtp.mailtrap.io',
-  port: 587,
+  port: 2525,
   secure: false, // use SSL
   auth: {
-    user: 'smtp@mailtrap.io',
-    pass: '197411ce806aa978c5654897a92e34de',
+    user: '63e74353647615',
+    pass: '831e77187d4a08',
   }
 });
 
