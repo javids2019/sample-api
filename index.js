@@ -67,6 +67,7 @@ app.use(cors(corsOptions));
 const transporter = nodemailer.createTransport({
   host: 'sandbox.smtp.mailtrap.io',
   port: 2525,
+  secure: false,
   auth: {
     user: '63e74353647615',
     pass: '831e77187d4a08',
@@ -155,6 +156,7 @@ app.post('/api/send-mail', async (req, res) => {
   }
 });
 
+ 
 // Replace with your Razorpay credentials
 const razorpay = new Razorpay({
   key_id: key_id,
