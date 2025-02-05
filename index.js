@@ -101,6 +101,9 @@ console.log('client created ');
 //     .then(message => console.log(message.sid))
 //     .done();
 
+   console.log("from " + req.body.from);
+   console.log("to " + req.body.to);
+   
     client.messages
     .create({
         from: `whatsapp:"${req.body.from}"`,
