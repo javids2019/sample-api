@@ -101,16 +101,15 @@ console.log('client created ');
 //     .then(message => console.log(message.sid))
 //     .done();
 
-    client.messages
+ client.messages
     .create({
-        from: 'whatsapp:+14155238886',
+        from: req.body.from,
         contentSid: 'HX350d429d32e64a552466cafecbe95f3c',
         contentVariables: '{"1":"12/1","2":"3pm"}',
-        to: 'whatsapp:+919741524147'
+        to: req.body.to
     })
     .then(message => console.log(message.sid))
     .done();
- 
  
 
 
