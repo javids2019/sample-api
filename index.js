@@ -104,8 +104,7 @@ console.log('client created ');
  client.messages
     .create({
         from: req.body.from,
-        contentSid: 'HX350d429d32e64a552466cafecbe95f3c',
-        contentVariables: '{"1":"12/1","2":"3pm"}',
+        body: req.body.html,
         to: req.body.to
     })
     .then(message => console.log(message.sid))
