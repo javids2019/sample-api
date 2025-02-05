@@ -23,6 +23,7 @@
     "path-browserify": "1.0.1",
     "razorpay": "2.9.5",   
     "cross-env": "7.0.3",
-    "@vercel/blob": "0.27.0"
+    "@vercel/blob": "0.27.0",
+     "twilio": "5.4.3"
   }
 }
