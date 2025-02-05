@@ -82,7 +82,40 @@ app.get('/api', (req, res) => {
 const upload = multer();
 const upload1 = multer({ dest: '/tmp/' });
 
- 
+
+
+app.post('/api/send-whatsup-message', async (req, res) => {
+  try {
+const accountSid = 'ACeb65ad384009fac9268f2453313220f5';
+const authToken = 'c1aea91c9bdd187402b9e213303a2805';
+console.log('client started ');
+const client = require('twilio')(accountSid, authToken);
+console.log('client created ');
+// client.messages
+//     .create({
+//         from: `whatsapp:"${req.body.from}"`,
+//         contentSid: 'HX350d429d32e64a552466cafecbe95f3c',
+//         contentVariables: '{"1":"12/1","2":"3pm"}',
+//         to: `whatsapp:"${req.body.to}"`
+//     })
+//     .then(message => console.log(message.sid))
+//     .done();
+
+
+    client.messages
+    .create({
+        from: 'whatsapp:+14155238886',
+        contentSid: 'HX350d429d32e64a552466cafecbe95f3c',
+        contentVariables: '{"1":"12/1","2":"3pm"}',
+        to: 'whatsapp:+919741524147'
+    })
+    .then(message => console.log(message.sid))
+    .done();
+
+  } catch (error) {
+    res.status(error.response?.status || 500).json(error.response?.data || { message: JSON.stringify(error) });
+  }
+});
 
 app.post('/api/file-upload', upload.single('image'), async (req, res) => {
     try {
