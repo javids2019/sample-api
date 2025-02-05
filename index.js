@@ -101,16 +101,18 @@ console.log('client created ');
 //     .then(message => console.log(message.sid))
 //     .done();
 
-
- 
-client.messages
+    client.messages
     .create({
         from: `whatsapp:"${req.body.from}"`,
-        body: req.body.html,
+        contentSid: 'HX350d429d32e64a552466cafecbe95f3c',
+        contentVariables: '{"1":"12/1","2":"3pm"}',
         to: `whatsapp:"${req.body.to}"`
     })
     .then(message => console.log(message.sid))
     .done();
+
+ 
+ 
 
 
   } catch (error) {
