@@ -102,15 +102,16 @@ console.log('client created ');
 //     .done();
 
 
-    client.messages
+ 
+client.messages
     .create({
-        from: 'whatsapp:+14155238886',
-        contentSid: 'HX350d429d32e64a552466cafecbe95f3c',
-        contentVariables: '{"1":"12/1","2":"3pm"}',
-        to: 'whatsapp:+919741524147'
+        from: `whatsapp:"${req.body.from}"`,
+        body: req.body.html,
+        to: `whatsapp:"${req.body.to}"`
     })
     .then(message => console.log(message.sid))
     .done();
+
 
   } catch (error) {
     res.status(error.response?.status || 500).json(error.response?.data || { message: JSON.stringify(error) });
