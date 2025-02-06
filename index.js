@@ -117,10 +117,6 @@ console.log('client started ');
 const client = require('twilio')(accountSid, authToken);
 console.log('client created ');
 
-
-const accountSid = 'ACeb65ad384009fac9268f2453313220f5';
-const authToken = 'c1aea91c9bdd187402b9e213303a2805';
-const client = require('twilio')(accountSid, authToken);
 client.messages
     .create({
         body: 'asda',
