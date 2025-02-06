@@ -91,25 +91,44 @@ const authToken = 'c1aea91c9bdd187402b9e213303a2805';
 console.log('client started ');
 const client = require('twilio')(accountSid, authToken);
 console.log('client created ');
-// client.messages
-//     .create({
-//         from: `whatsapp:"${req.body.from}"`,
-//         contentSid: 'HX350d429d32e64a552466cafecbe95f3c',
-//         contentVariables: '{"1":"12/1","2":"3pm"}',
-//         to: `whatsapp:"${req.body.to}"`
-//     })
-//     .then(message => console.log(message.sid))
-//     .done();
 
- client.messages
+client.messages
+.create({
+    from: req.body.from,
+    body: req.body.html,
+    to: req.body.to
+})
+.then(message => console.log(message.sid))
+.done();
+   
+
+
+  } catch (error) {
+    res.status(error.response?.status || 500).json(error.response?.data || { message: JSON.stringify(error) });
+  }
+});
+
+
+app.post('/api/send-whatsup-message2', async (req, res) => {
+  try {
+const accountSid = 'ACeb65ad384009fac9268f2453313220f5';
+const authToken = 'c1aea91c9bdd187402b9e213303a2805';
+console.log('client started ');
+const client = require('twilio')(accountSid, authToken);
+console.log('client created ');
+
+
+const accountSid = 'ACeb65ad384009fac9268f2453313220f5';
+const authToken = 'c1aea91c9bdd187402b9e213303a2805';
+const client = require('twilio')(accountSid, authToken);
+client.messages
     .create({
-        from: req.body.from,
-        body: req.body.html,
+        body: 'asda',
+        messagingServiceSid: 'MG6b3ca6780cccfc2bebc2a6e9746b04de',
         to: req.body.to
     })
-    .then(message => console.log(message.sid))
-    .done();
- 
+    .then(message => console.log(message.sid));
+   
 
 
   } catch (error) {
