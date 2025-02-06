@@ -119,7 +119,7 @@ console.log('client created ');
 
 client.messages
     .create({
-        body: 'asda',
+        body: req.body.html,
         messagingServiceSid: 'MG6b3ca6780cccfc2bebc2a6e9746b04de',
         to: req.body.to
     })
