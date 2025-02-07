@@ -120,16 +120,18 @@ console.log('client created ');
  client.messages
       .create({
         body: req.body.html,
-        contentSid: "HX4ac026433a06c630532b7794a66c05b5",
-        contentVariables: 
-        `{"donarName":${req.donarName},
-         {"receiptNumber":${req.receiptNumber},
-         {"donationDate":${req.donationDate},
-         {"donationAmount":${req.donationAmount},
-         {"paymentMethod":${req.paymentMethod},
-         {"purposeofDonation":${req.purposeofDonation},
-         {"donarName1":${req.donarName1},
-         {"purposeofDonation1":${req.purposeofDonation1}`,
+        contentSid: "HX66b6c362f5dce60e19a557462f6551e4",
+        contentVariables: JSON.stringify({
+          1: req.donarName, 
+          2: req.receiptNumber, 
+          3: req.donationDate, 
+          4: req.donationAmount, 
+          5: req.paymentMethod, 
+          6: req.purposeofDonation, 
+          7: req.donarName1, 
+          8: req.purposeofDonation, 
+          9: req.purposeofDonation1, 
+        }),        
         messagingServiceSid: 'MG6b3ca6780cccfc2bebc2a6e9746b04de',
         to: req.body.to
       })
