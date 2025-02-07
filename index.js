@@ -127,10 +127,7 @@ console.log('client created ');
           3: req.donationDate, 
           4: req.donationAmount, 
           5: req.paymentMethod, 
-          6: req.purposeofDonation, 
-          7: req.donarName1, 
-          8: req.purposeofDonation, 
-          9: req.purposeofDonation1, 
+          6: req.purposeofDonation      
         }),        
         messagingServiceSid: 'MG6b3ca6780cccfc2bebc2a6e9746b04de',
         to: req.body.to
