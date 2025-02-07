@@ -116,7 +116,7 @@ const authToken = 'c1aea91c9bdd187402b9e213303a2805';
 console.log('client started ');
 const client = require('twilio')(accountSid, authToken);
 console.log('client created ');
-
+console.log('Request data ', req);
  client.messages
       .create({
         body: req.body.html,
