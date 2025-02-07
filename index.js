@@ -116,18 +116,18 @@ const authToken = 'c1aea91c9bdd187402b9e213303a2805';
 console.log('client started ');
 const client = require('twilio')(accountSid, authToken);
 console.log('client created ');
-console.log('Request data ', req);
+console.log('Request data ', req.body);
  client.messages
       .create({
         body: req.body.html,
         contentSid: "HX333fb47d5bfe525687662771481dc1e1",
         contentVariables: JSON.stringify({
-          1: req.donarName, 
-          2: req.receiptNumber, 
-          3: req.donationDate, 
-          4: req.donationAmount, 
-          5: req.paymentMethod, 
-          6: req.purposeofDonation      
+          1: req.body.donarName, 
+          2: req.body.receiptNumber, 
+          3: req.body.donationDate, 
+          4: req.body.donationAmount, 
+          5: req.body.paymentMethod, 
+          6: req.body.purposeofDonation      
         }),        
         messagingServiceSid: 'MG6b3ca6780cccfc2bebc2a6e9746b04de',
         to: req.body.to
