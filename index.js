@@ -129,8 +129,7 @@ app.post('/api/send-whatsup-message2', async (req, res) => {
           6: req.body.purposeofDonation
         }),
         messagingServiceSid: 'MG6b3ca6780cccfc2bebc2a6e9746b04de',
-        to: req.body.to,
-        from: 'whatsapp:+919791994147',
+        to: req.body.to
       })
       .then(message => console.log(message.sid));
 
