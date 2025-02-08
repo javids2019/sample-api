@@ -131,13 +131,13 @@ app.post('/api/send-whatsup-message2', async (req, res) => {
     console.log('Request data ', req.body);
     console.log('Request req.body.donarName ', req.body.donarName);
     console.log('Request req.body.receiptNumber ', req.body.receiptNumber);
-    
+    console.log('contentVariables ', `{"1":${req.body.donarName},"2":${req.body.receiptNumber},"3":${req.body.donationDate},"4":${req.body.donationAmount},"4":${req.body.paymentMethod},"5":${req.body.purposeofDonation}}`);
+     
     client.messages
       .create({
-        body: req.body.html,
+        from: 'whatsapp:+919791994147',
         contentSid: "HX333fb47d5bfe525687662771481dc1e1",
         contentVariables: `{"1":${req.body.donarName},"2":${req.body.receiptNumber},"3":${req.body.donationDate},"4":${req.body.donationAmount},"4":${req.body.paymentMethod},"5":${req.body.purposeofDonation}}`,
-        from: 'whatsapp:+919791994147',
         to: req.body.to
       })
       .then(message => console.log(message.sid));
