@@ -94,8 +94,7 @@ app.post('/api/send-whatsup-message2', async (req, res) => {
     contentVariables: `{"1":"${req.body.donarName}","2":"${req.body.receiptNumber}","3":"${req.body.donationDate}","4":"${req.body.donationAmount}","4":"${req.body.paymentMethod}","5":"${req.body.purposeofDonation}"}`,
 
     client.messages
-      .create({
-        body: req.body.html,
+      .create({       
         contentSid: "HX333fb47d5bfe525687662771481dc1e1",
         contentVariables: `{"1":"${req.body.donarName}","2":"${req.body.receiptNumber}","3":"${req.body.donationDate}","4":"${req.body.donationAmount}","4":"${req.body.paymentMethod}","5":"${req.body.purposeofDonation}"}`,
         from: 'whatsapp:+919791994147',
