@@ -132,7 +132,8 @@ app.post('/api/send-whatsup-message2', async (req, res) => {
           5: req.body.paymentMethod,
           6: req.body.purposeofDonation
         }),
-        to: req.body.to
+        to: req.body.to,
+        from: 'whatsapp:+919791994147'
       })
       .then(message => console.log(message.sid));
 
