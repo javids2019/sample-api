@@ -91,7 +91,7 @@ app.post('/api/send-whatsup-message2', async (req, res) => {
     console.log('Request data ', req.body);
     console.log('Request req.body.donarName ', req.body.donarName);
     console.log('Request req.body.receiptNumber ', req.body.receiptNumber);
-    contentVariables: `{"1":"${req.body.donarName}","2":"${req.body.receiptNumber}","3":"${req.body.donationDate}","4":"${req.body.donationAmount}","4":"${req.body.paymentMethod}","5":"${req.body.purposeofDonation}"}`,
+    console.log('contentVariables ', `{"1":${req.body.donarName},"2":${req.body.receiptNumber},"3":${req.body.donationDate},"4":${req.body.donationAmount},"4":${req.body.paymentMethod},"5":${req.body.purposeofDonation}}`);
 
     client.messages
       .create({       
