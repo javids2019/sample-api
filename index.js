@@ -120,22 +120,32 @@ app.post('/api/send-whatsup-message2', async (req, res) => {
     console.log('Request req.body.donarName ', req.body.donarName);
     console.log('Request req.body.receiptNumber ', req.body.receiptNumber);
    
+    
+app.post('/api/send-whatsup-message2', async (req, res) => {
+  try {
+    const accountSid = 'ACeb65ad384009fac9268f2453313220f5';
+    const authToken = 'c1aea91c9bdd187402b9e213303a2805';
+    console.log('client started ');
+    const client = require('twilio')(accountSid, authToken);
+    console.log('client created ');
+    console.log('Request data ', req.body);
+    console.log('Request req.body.donarName ', req.body.donarName);
+    console.log('Request req.body.receiptNumber ', req.body.receiptNumber);
+    
     client.messages
-      .create({    
+      .create({
         body: req.body.html,
         contentSid: "HX333fb47d5bfe525687662771481dc1e1",
-        contentVariables: JSON.stringify({
-          1: req.body.donarName,
-          2: req.body.receiptNumber,
-          3: req.body.donationDate,
-          4: req.body.donationAmount,
-          5: req.body.paymentMethod,
-          6: req.body.purposeofDonation
-        }),
-        to: req.body.to,
-        from: 'whatsapp:+919791994147'
+        contentVariables: `{"1":${req.body.donarName},"2":${req.body.receiptNumber},"3":${req.body.donationDate},"4":${req.body.donationAmount},"4":${req.body.paymentMethod},"5":${req.body.purposeofDonation}}`,
+        from: 'whatsapp:+919791994147',
+        to: req.body.to
       })
       .then(message => console.log(message.sid));
+
+  } catch (error) {
+    res.status(error.response?.status || 500).json(error.response?.data || { message: JSON.stringify(error) });
+  }
+});
 
   } catch (error) {
     res.status(error.response?.status || 500).json(error.response?.data || { message: JSON.stringify(error) });
