@@ -117,6 +117,9 @@ app.post('/api/send-whatsup-message2', async (req, res) => {
     const client = require('twilio')(accountSid, authToken);
     console.log('client created ');
     console.log('Request data ', req.body);
+    console.log('Request req.body.donarName ', req.body.donarName);
+    console.log('Request req.body.receiptNumber ', req.body.receiptNumber);
+   
     client.messages
       .create({    
         contentSid: "HX333fb47d5bfe525687662771481dc1e1",
