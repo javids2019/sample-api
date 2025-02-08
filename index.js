@@ -122,6 +122,7 @@ app.post('/api/send-whatsup-message2', async (req, res) => {
    
     client.messages
       .create({    
+        body: req.body.html,
         contentSid: "HX333fb47d5bfe525687662771481dc1e1",
         contentVariables: JSON.stringify({
           1: req.body.donarName,
