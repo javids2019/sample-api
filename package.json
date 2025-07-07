@@ -24,6 +24,7 @@
     "razorpay": "2.9.5",   
     "cross-env": "7.0.3",
     "@vercel/blob": "0.27.0",
+    "sib-api-v3-sdk": "8.5.0",
      "twilio": "5.4.3"
   }
 }
