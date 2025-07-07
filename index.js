@@ -10,6 +10,7 @@ const cors = require('cors');
 const fs = require('fs');
 const app = express();
 const PORT = 4000;
+const SibApiV3Sdk = require('sib-api-v3-sdk');
 app.use(express.json());
 
 // This will enable CORS for all routes
@@ -21,18 +22,24 @@ dotenv.config();
 
 const key_id = process.env.AJ_RAZORPAY_KEY_ID || 'rzp_live_ZDmFUssbqr7kRa';
 const key_secret = process.env.AJ_RAZORPAY_SECRET || 'ZeJJLLvDTN93mPrRyBu7dd7z';
+const defaultClient = SibApiV3Sdk.ApiClient.instance;
+const apiKey = defaultClient.authentications['api-key'];
+apiKey.apiKey = 'GgSrVCWT4pUbqDsR'; // Replace with your real key
 
 
 // List of allowed origins
 const allowedOrigins = [
-  "http://localhost:3000", // React app running locally
+  "http://localhost:4000", // React app running locally
+   "http://localhost:3000",
+  "http://localhost:5173",
   "https://aj-smile-foundation.com",
   "https://www.aj-smile-foundation.com",
   "https://sample-api-psi.vercel.app"
 ];
 
+  const destinationDir = path.join(__dirname, 'versal/uploads');
 try {
-  const destinationDir = path.join('/tmp', 'images');
+
   if (!fs.existsSync(destinationDir)) {
     fs.mkdirSync(destinationDir, { recursive: true }); // Create the directory if it doesn't exist
   }
@@ -40,6 +47,21 @@ try {
 catch (err) {
   console.error('Error creating directory:', err);
 }
+
+// Multer config for multiple files
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, destinationDir);
+  },
+  filename: (req, file, cb) => {
+    const uniqueName = Date.now() + '-' + file.originalname;
+    cb(null, uniqueName);
+  }
+});
+const upload11 = multer({ storage: storage });
+
+app.use('/api/uploads', express.static(destinationDir));
+
 
 // CORS configuration
 const corsOptions = {
@@ -78,6 +100,46 @@ const gmailTransporter = nodemailer.createTransport({
     user: 'javidat2020@gmail.com', // Your email address
     pass: 'Allah@javidat2020', // Your email password or app-specific password
   },
+});
+
+
+app.post('/api/upload-multiple', upload11.array('images', 10), (req, res) => {
+  if (!req.files || req.files.length === 0) {
+    return res.status(400).json({ message: 'No images uploaded' });
+  }
+
+  const fileUrls = req.files.map(file => ({
+    originalName: file.originalname,
+    fileName: file.filename,
+    filePath: `/uploads/${file.filename}`
+  }));
+
+  res.status(200).json({
+    message: 'Images uploaded successfully',
+    files: fileUrls
+  });
+});
+
+app.post("/api/send-brevo-email", async (req, res) => {
+  const { to, subject, text } = req.body;
+
+  console.log('test');
+  const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
+  const sendSmtpEmail = {
+    to: [{ email: to }],
+    sender: { email: 'info@aj-smile-foundation.com', name: 'AJ Ssmile Foundation' },
+    subject: subject,
+    textContent: text
+  };
+
+  try {
+    await apiInstance.sendTransacEmail(sendSmtpEmail);
+    console.log('test');
+    res.status(200).send({ message: "Email sent successfully!" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Failed to send email", error });
+  }
 });
 
 
