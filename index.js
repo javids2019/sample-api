@@ -32,6 +32,7 @@ const allowedOrigins = [
   "http://localhost:4000", // React app running locally
    "http://localhost:3000",
   "http://localhost:5173",
+  "https://vercel.com/",
   "https://aj-smile-foundation.com",
   "https://www.aj-smile-foundation.com",
   "https://sample-api-psi.vercel.app"
