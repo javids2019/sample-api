@@ -33,6 +33,7 @@ const allowedOrigins = [
    "http://localhost:3000",
   "http://localhost:5173",
   "https://vercel.com/",
+  "https://easy-listing.vercel.app",
   "https://aj-smile-foundation.com",
   "https://www.aj-smile-foundation.com",
   "https://sample-api-psi.vercel.app"
