@@ -35,6 +35,8 @@ const allowedOrigins = [
   "https://vercel.com/",
   "https://easy-listing.vercel.app",
   "https://aj-smile-foundation.com",
+  "https://www.easyquicklistings.com",
+  "https://easyquicklistings.com",
   "https://www.aj-smile-foundation.com",
   "https://sample-api-psi.vercel.app"
 ];
