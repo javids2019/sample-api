@@ -11,6 +11,7 @@ const fs = require('fs');
 const app = express();
 const PORT = 4000;
 const SibApiV3Sdk = require('sib-api-v3-sdk');
+const { GetProductDetailsById } = require('./src/services/common-service');
 app.use(express.json());
 
 // This will enable CORS for all routes
@@ -146,6 +147,20 @@ app.post("/api/send-brevo-email", async (req, res) => {
   }
 });
 
+ 
+
+app.post("/api/get-products", async (req, res) => {
+  const { id, loginEmail } = req.body;
+   console.log("req.body", req.body);
+  try {
+    const result = await GetProductDetailsById(id, loginEmail);
+    console.log("result", result);
+    return res.status(200).json(result || []);
+  } catch (error) {
+    console.error("Error in /api/get-products:", error);
+    return res.status(500).json({ error: "Database error" });
+  }
+});
 
 app.post('/api/send-whatsup-message2', async (req, res) => {
   try {
