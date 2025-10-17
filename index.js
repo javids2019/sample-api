@@ -35,6 +35,7 @@ const allowedOrigins = [
   "http://localhost:5173",
   "https://vercel.com/",
   "https://easy-listing.vercel.app",
+  "https://www.easyquicklistings.com",
   "https://aj-smile-foundation.com",
   "https://www.easyquicklistings.com",
   "https://easyquicklistings.com",
