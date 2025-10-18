@@ -2,8 +2,6 @@
 
 let productItemsArray = [];
 
-
-
 const GetProductDetailsById = async (id, loginEmail) => {
     let _pool;
     try {
@@ -23,6 +21,7 @@ const GetProductDetailsById = async (id, loginEmail) => {
             _pool = new Pool({
                 connectionString: _connectionString,
                 ssl: { rejectUnauthorized: false },
+                connectionTimeoutMillis: 5000, // 5 seconds timeout
             });
 
 
