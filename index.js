@@ -43,16 +43,16 @@ const allowedOrigins = [
   "https://sample-api-psi.vercel.app"
 ];
 
-  const destinationDir = path.join(__dirname, 'versal/uploads');
-try {
+//   const destinationDir = path.join(__dirname, 'versal/uploads');
+// try {
 
-  if (!fs.existsSync(destinationDir)) {
-    fs.mkdirSync(destinationDir, { recursive: true }); // Create the directory if it doesn't exist
-  }
-}
-catch (err) {
-  console.error('Error creating directory:', err);
-}
+//   if (!fs.existsSync(destinationDir)) {
+//     fs.mkdirSync(destinationDir, { recursive: true }); // Create the directory if it doesn't exist
+//   }
+// }
+// catch (err) {
+//   console.error('Error creating directory:', err);
+// }
 
 // Multer config for multiple files
 // const storage = multer.diskStorage({
