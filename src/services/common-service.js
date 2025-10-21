@@ -4,6 +4,8 @@ let productItemsArray = [];
 
 const GetProductDetailsById = async (id, loginEmail) => {
     let _pool;
+    let _client;
+  
     try {
 
         let product = {};
@@ -21,20 +23,12 @@ const GetProductDetailsById = async (id, loginEmail) => {
             _pool = new Pool({
                 connectionString: _connectionString,
                 ssl: { rejectUnauthorized: false },
-                connectionTimeoutMillis: 5000, // 5 seconds timeout
+                connectionTimeoutMillis: 8000, // 8 seconds timeout
+                idleTimeoutMillis: 10000, // keep connections idle for up to 10 seconds
+                keepAlive: true
             });
 
-
-
-            let product = {};
-            const key = id + loginEmail;
-            product = productItemsArray.find(obj => obj.key === key);
-
-            if (product) {
-                return product?.value;
-            } else {
-
-                const selectQuery = `SELECT   
+            const selectQuery = `SELECT   
             uf.id AS favorite_id,
             uf.email AS favorite_email,
             uf.status,
@@ -60,17 +54,17 @@ const GetProductDetailsById = async (id, loginEmail) => {
             LEFT JOIN user_favorite uf on uf.product_id = p.id  and uf.email = $1    
             LEFT JOIN user_details ud on ud.email = p.created_by
             where p.id = $2`;
-
-                const result = await _pool.query(selectQuery, [loginEmail, id]);
-                console.log("result?.rows", result?.rows[0]);
-                const resultValue = result?.rows.length > 0 ? result.rows[0] : {};
-                productItemsArray.push({ key: key, value: resultValue });
-                return resultValue;
-            }
+             _client = await _pool.connect(); 
+            const result = await _client.query(selectQuery, [loginEmail, id]);
+            console.log("result?.rows", result?.rows[0]);
+            const resultValue = result?.rows.length > 0 ? result.rows[0] : {};
+            productItemsArray.push({ key: key, value: resultValue });
+            return resultValue;
         }
-
     } catch (e) {
         console.error('Error get products document: ', e);
-    }
+    } finally {
+    _client?.release(); // Release the client back to the pool
+  }
 };
 module.exports = { GetProductDetailsById };
