@@ -30,7 +30,7 @@ apiKey.apiKey = 'GgSrVCWT4pUbqDsR'; // Replace with your real key
 
 // List of allowed origins
 const allowedOrigins = [
-  "http://localhost:4000", // React app running locally
+    "http://localhost:4000", // React app running locally
    "http://localhost:3000",
   "http://localhost:5173",
   "https://vercel.com/",
@@ -55,18 +55,18 @@ catch (err) {
 }
 
 // Multer config for multiple files
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, destinationDir);
-  },
-  filename: (req, file, cb) => {
-    const uniqueName = Date.now() + '-' + file.originalname;
-    cb(null, uniqueName);
-  }
-});
-const upload11 = multer({ storage: storage });
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, destinationDir);
+//   },
+//   filename: (req, file, cb) => {
+//     const uniqueName = Date.now() + '-' + file.originalname;
+//     cb(null, uniqueName);
+//   }
+// });
+// const upload11 = multer({ storage: storage });
 
-app.use('/api/uploads', express.static(destinationDir));
+// app.use('/api/uploads', express.static(destinationDir));
 
 
 // CORS configuration
@@ -109,22 +109,22 @@ const gmailTransporter = nodemailer.createTransport({
 });
 
 
-app.post('/api/upload-multiple', upload11.array('images', 10), (req, res) => {
-  if (!req.files || req.files.length === 0) {
-    return res.status(400).json({ message: 'No images uploaded' });
-  }
+// app.post('/api/upload-multiple', upload11.array('images', 10), (req, res) => {
+//   if (!req.files || req.files.length === 0) {
+//     return res.status(400).json({ message: 'No images uploaded' });
+//   }
 
-  const fileUrls = req.files.map(file => ({
-    originalName: file.originalname,
-    fileName: file.filename,
-    filePath: `/uploads/${file.filename}`
-  }));
+//   const fileUrls = req.files.map(file => ({
+//     originalName: file.originalname,
+//     fileName: file.filename,
+//     filePath: `/uploads/${file.filename}`
+//   }));
 
-  res.status(200).json({
-    message: 'Images uploaded successfully',
-    files: fileUrls
-  });
-});
+//   res.status(200).json({
+//     message: 'Images uploaded successfully',
+//     files: fileUrls
+//   });
+// });
 
 app.post("/api/send-brevo-email", async (req, res) => {
   const { to, subject, text } = req.body;
@@ -149,12 +149,26 @@ app.post("/api/send-brevo-email", async (req, res) => {
 });
 
  
-
+ 
 app.post("/api/get-products", async (req, res) => {
-  const { id, loginEmail } = req.body;
+  const { id, email } = req.body;
    console.log("req.body", req.body);
   try {
-    const result = await GetProductDetailsById(id, loginEmail);
+    const result = await GetProductDetailsById(id, email);
+    console.log("result", result);
+    return res.status(200).json(result || []);
+  } catch (error) {
+    console.error("Error in /api/get-products:", error);
+    return res.status(500).json({ error: "Database error" });
+  }
+});
+
+app.get("/api/get-products1", async (req, res) => {
+  // Access parameters from req.query
+  const { id, email } = req.query;
+  console.log("req.query", req.query); // Note: logging req.query now
+  try {
+    const result = await GetProductDetailsById(id, email);
     console.log("result", result);
     return res.status(200).json(result || []);
   } catch (error) {
